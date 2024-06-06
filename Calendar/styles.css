@@ -1,0 +1,32 @@
+.calendar-main {
+  display: none;
+}
+
+.week {
+  display: flex;
+}
+
+.text-day,
+.date-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 20px;
+  background-color: #e9e9e9;
+  border-right: 1px solid;
+}
+
+.text-day:first-child {
+  border-left: 1px solid;
+}
+
+.date-num {
+  background-color: #fff;
+  color: #ccc;
+  border: 0;
+}
+
+.date-num.active {
+  background-color: steelblue;
+}
