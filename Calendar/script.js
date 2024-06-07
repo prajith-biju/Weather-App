@@ -100,20 +100,22 @@ function displayCalendarPage() {
     : (start = noOfDaysInLastMonth - (firstDay - 1));
 
   while (start <= noOfDaysInLastMonth) {
-    calendarArray.push(start);
+    calendarArray.push({ dateValue: start, currentMonth: false });
     start++;
   }
 
   let length = 42 - calendarArray.length;
+  let activeFlag = true;
   for (let i = 1; i < length; i++) {
     if (i > noOfDaysInCurrentMonth) {
       i = 1;
+      activeFlag = false;
     }
 
     if (calendarArray.length >= 42) break;
-    calendarArray.push(i);
+    calendarArray.push({ dateValue: i, currentMonth: activeFlag });
   }
-
+  console.log(calendarArray);
   calendarPage.innerHTML = `
   <div class="week">
     <div class="text-day">Sun</div>
@@ -131,7 +133,13 @@ function displayCalendarPage() {
 function generateCalerndarPage(month) {
   let htmlForCalender = ``;
   for (let i = 0; i < month.length; i++) {
-    htmlForCalender += `<div class="date-num">${month[i]}</div>`;
+    htmlForCalender += `<div class="date-num ${
+      month[i].currentMonth ? "active-month" : ""
+    } ${
+      month[i].dateValue === CURRENT_DATE && month[i].currentMonth
+        ? " today"
+        : ""
+    }">${month[i].dateValue}</div>`;
   }
   return htmlForCalender;
 }
