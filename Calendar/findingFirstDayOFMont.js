@@ -17,6 +17,7 @@ function findingFirstDayOfMonth(date, dayNum) {
       dayNum = 6;
     }
   }
+  console.log("from fuction", dayNum);
   return days[dayNum];
 }
 
@@ -81,6 +82,11 @@ function testFuntion() {
       date: 24,
       day: 5,
       expected: "Wednesday",
+    },{
+      // test 11
+      date: 6,
+      day: 4,
+      expected: "Saturday",
     },
   ];
   for (let i = 0; i < testCase.length; i++) {

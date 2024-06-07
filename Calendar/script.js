@@ -24,6 +24,7 @@ const monthArray = [
   "Nov",
   "Dec",
 ];
+const daysArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // declerations
 let CURRENT_MONTH;
@@ -31,7 +32,6 @@ let CURRENT_YEAR;
 let CURRENT_DAY;
 let CURRENT_DATE;
 let isLeapYear = false;
-let isOddMonth = false;
 
 // eventLisreners
 inputEl.addEventListener("click", () => showCalendar());
@@ -63,26 +63,57 @@ function displayDate() {
 function incrementMonth() {
   CURRENT_MONTH++;
   CURRENT_MONTH > 11 ? ((CURRENT_MONTH = 0), CURRENT_YEAR++) : CURRENT_MONTH;
-  displayCalendarPage();
   displayDate();
+  displayCalendarPage();
 }
 
 function decrementMonth() {
   CURRENT_MONTH--;
   CURRENT_MONTH < 0 ? ((CURRENT_MONTH = 11), CURRENT_YEAR--) : CURRENT_MONTH;
   displayDate();
+  displayCalendarPage();
 }
 
-function checkOddMonth() {
-  isOddMonth = [0, 2, 4, 6, 7, 9, 11].includes(CURRENT_MONTH);
+function checkOddMonth(monthNumber) {
+  return [0, 2, 4, 6, 7, 9, 11].includes(monthNumber);
 }
-
-
 
 function displayCalendarPage() {
-  let noOfDays = 30;
-  checkOddMonth();
-  isOddMonth ? (noOfDays = 31) : noOfDays;
+  let calendarArray = [];
+  let start;
+  let isCurrentMonthOdd = checkOddMonth(CURRENT_MONTH);
+  let isLastMonthOdd = checkOddMonth(CURRENT_MONTH - 1);
+  let noOfDaysInCurrentMonth;
+  let noOfDaysInLastMonth;
+  isCurrentMonthOdd
+    ? (noOfDaysInCurrentMonth = 31)
+    : (noOfDaysInCurrentMonth = 30);
+  isLastMonthOdd ? (noOfDaysInLastMonth = 31) : (noOfDaysInLastMonth = 30);
+
+  let firstDayOfMonth = new Date(
+    `1 ${monthArray[CURRENT_MONTH]}, ${CURRENT_YEAR}`
+  );
+  let firstDay = firstDayOfMonth.getDay();
+
+  firstDay === 0
+    ? (start = noOfDaysInLastMonth - 6)
+    : (start = noOfDaysInLastMonth - (firstDay - 1));
+
+  while (start <= noOfDaysInLastMonth) {
+    calendarArray.push(start);
+    start++;
+  }
+
+  let length = 42 - calendarArray.length;
+  for (let i = 1; i < length; i++) {
+    if (i > noOfDaysInCurrentMonth) {
+      i = 1;
+    }
+
+    if (calendarArray.length >= 42) break;
+    calendarArray.push(i);
+  }
+
   calendarPage.innerHTML = `
   <div class="week">
     <div class="text-day">Sun</div>
@@ -93,6 +124,14 @@ function displayCalendarPage() {
     <div class="text-day">Fri</div>
     <div class="text-day">Sat</div>
   </div>
-  <div class="date-grid"></div>
+  <div class="date-grid">${generateCalerndarPage(calendarArray)}</div>
   `;
+}
+
+function generateCalerndarPage(month) {
+  let htmlForCalender = ``;
+  for (let i = 0; i < month.length; i++) {
+    htmlForCalender += `<div class="date-num">${month[i]}</div>`;
+  }
+  return htmlForCalender;
 }

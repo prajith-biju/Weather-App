@@ -5,7 +5,15 @@
 .week {
   display: flex;
 }
-
+.show-calender {
+  display: flex;
+  flex-direction: column;
+}
+.date-grid {
+  display: flex;
+  width: 220px;
+  flex-wrap: wrap;
+}
 .text-day,
 .date-num {
   display: flex;
@@ -23,8 +31,9 @@
 
 .date-num {
   background-color: #fff;
-  color: #ccc;
+  color: #949393;
   border: 0;
+  margin: 1px;
 }
 
 .date-num.active {
