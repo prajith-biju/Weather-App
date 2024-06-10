@@ -37,6 +37,8 @@ let isLeapYear = false;
 inputEl.addEventListener("click", () => showCalendar());
 incrementMonthBtn.addEventListener("click", () => incrementMonth());
 decrementMonthBtn.addEventListener("click", () => decrementMonth());
+incrementYearBtn.addEventListener("click", () => incrementYear());
+decrementYearBtn.addEventListener("click", () => decrementYear());
 
 // functions
 function showCalendar() {
@@ -52,7 +54,7 @@ function getDate() {
   CURRENT_YEAR = date.getFullYear();
   CURRENT_DATE = date.getDate();
   CURRENT_DAY = date.getDay();
-  // console.log(CURRENT_DATE);
+  // console.log(CURRENT_DAY);
 }
 
 function displayDate() {
@@ -146,4 +148,26 @@ function generateCalendarPage(month) {
 
 function checkLeapYear() {
   return CURRENT_YEAR % 4 === 0 ? true : false;
+}
+
+function incrementYear() {
+  CURRENT_YEAR++;
+  updateYear();
+}
+
+function decrementYear() {
+  CURRENT_YEAR--;
+  updateYear();
+}
+
+function updateYear() {
+  let changedYear = new Date(
+    `${CURRENT_DATE}, ${monthArray[CURRENT_MONTH]}, ${CURRENT_YEAR}`
+  );
+  CURRENT_MONTH = changedYear.getMonth();
+  CURRENT_YEAR = changedYear.getFullYear();
+  CURRENT_DATE = changedYear.getDate();
+  CURRENT_DAY = changedYear.getDay();
+  displayDate();
+  displayCalendarPage();
 }
