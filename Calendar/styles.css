@@ -74,6 +74,7 @@ input:focus {
   background-color: #e9e9e9;
   border-right: 1px solid;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
 }
 
 .text-day {
@@ -102,4 +103,13 @@ input:focus {
 .date-num.active-month.today {
   background-color: rgb(162, 204, 238);
   color: #6a72eb;
+}
+
+.selected::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50% ;
+  background-color: rgba(186, 240, 161, 0.4);
 }

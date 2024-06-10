@@ -148,6 +148,8 @@ function displayCalendarPage() {
   </div>
   <div class="date-grid">${generateCalendarPage(calendarArray)}</div>
   `;
+  const datesCurrentMonth = document.querySelectorAll(".active-month");
+  selectDate(datesCurrentMonth);
 }
 
 function generateCalendarPage(month) {
@@ -170,17 +172,17 @@ function checkLeapYear() {
 
 function incrementYear() {
   CURRENT_YEAR++;
-  updateYear();
+  updateCalendar();
   updateInput();
 }
 
 function decrementYear() {
   CURRENT_YEAR--;
-  updateYear();
+  updateCalendar();
   updateInput();
 }
 
-function updateYear() {
+function updateCalendar() {
   let changedYear = new Date(
     `${CURRENT_DATE}, ${monthArray[CURRENT_MONTH]}, ${CURRENT_YEAR}`
   );
@@ -209,6 +211,23 @@ function findEnterdDate(event) {
     CURRENT_DATE = +enterdDateArray[0];
     CURRENT_MONTH = +enterdDateArray[1] - 1;
     CURRENT_YEAR = +enterdDateArray[2];
-    updateYear();
+    updateCalendar();
   }
+}
+
+function selectDate(nodeList) {
+  nodeList.forEach((element) => {
+    element.addEventListener("click", () => {
+      clearSelection(nodeList);
+      element.classList.add("selected");
+      CURRENT_DATE = +element.innerText;
+      updateInput()
+    });
+  });
+}
+
+function clearSelection(list) {
+  list.forEach((elem) => {
+    elem.classList.remove("selected");
+  });
 }
