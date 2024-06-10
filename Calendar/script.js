@@ -45,6 +45,7 @@ function showCalendar() {
   displayDate();
   calendarMainEl.style.display = "block";
   displayCalendarPage();
+  updateInput();
 }
 
 function getDate() {
@@ -66,6 +67,7 @@ function incrementMonth() {
   CURRENT_MONTH > 11 ? ((CURRENT_MONTH = 0), CURRENT_YEAR++) : CURRENT_MONTH;
   displayDate();
   displayCalendarPage();
+  updateInput();
 }
 
 function decrementMonth() {
@@ -73,6 +75,7 @@ function decrementMonth() {
   CURRENT_MONTH < 0 ? ((CURRENT_MONTH = 11), CURRENT_YEAR--) : CURRENT_MONTH;
   displayDate();
   displayCalendarPage();
+  updateInput();
 }
 
 function checkOddMonth(monthNumber) {
@@ -167,11 +170,13 @@ function checkLeapYear() {
 function incrementYear() {
   CURRENT_YEAR++;
   updateYear();
+  updateInput();
 }
 
 function decrementYear() {
   CURRENT_YEAR--;
   updateYear();
+  updateInput();
 }
 
 function updateYear() {
@@ -184,4 +189,14 @@ function updateYear() {
   CURRENT_DAY = changedYear.getDay();
   displayDate();
   displayCalendarPage();
+}
+
+function formatNumber(num) {
+  return num < 10 ? `0${num}` : num;
+}
+
+function updateInput() {
+  inputEl.value = `${formatNumber(CURRENT_DATE)}/ ${formatNumber(
+    CURRENT_MONTH + 1
+  )}/ ${CURRENT_YEAR}`;
 }
