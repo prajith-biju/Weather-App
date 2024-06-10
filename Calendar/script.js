@@ -31,7 +31,6 @@ let CURRENT_MONTH;
 let CURRENT_YEAR;
 let CURRENT_DAY;
 let CURRENT_DATE;
-let isLeapYear = false;
 
 // eventLisreners
 inputEl.addEventListener("click", () => showCalendar());
@@ -77,14 +76,16 @@ function decrementMonth() {
 }
 
 function checkOddMonth(monthNumber) {
-  return [0, 2, 4, 6, 7, 9, 11].includes(monthNumber);
+  return [0, 2, 4, 6, 7, 9, 11, -1].includes(monthNumber); //here -1 included (Jan have number 0 and 0 - 1 is -1 so Dec have 31 day)
 }
 
 function displayCalendarPage() {
   let calendarArray = [];
   let start;
   let isCurrentMonthOdd = checkOddMonth(CURRENT_MONTH);
-  let isLastMonthOdd = checkOddMonth(CURRENT_MONTH - 1);
+  let isLastMonthOdd = checkOddMonth(CURRENT_MONTH - 1); // if CURRENT_MONTH
+
+  // updating number of days in and past month
   let noOfDaysInCurrentMonth;
   let noOfDaysInLastMonth;
   isCurrentMonthOdd
@@ -92,11 +93,22 @@ function displayCalendarPage() {
     : (noOfDaysInCurrentMonth = 30);
   isLastMonthOdd ? (noOfDaysInLastMonth = 31) : (noOfDaysInLastMonth = 30);
 
+  // checking current month or past month is feb and the year is leap year or not, and adding corresponding no:of days
+  isLeapYear = checkLeapYear();
+  if (CURRENT_MONTH - 1 === 1) {
+    isLeapYear ? (noOfDaysInLastMonth = 29) : (noOfDaysInLastMonth = 28);
+  }
+  if (CURRENT_MONTH === 1) {
+    isLeapYear ? (noOfDaysInCurrentMonth = 29) : (noOfDaysInCurrentMonth = 28);
+  }
+
+  // getting first day of current month
   let firstDayOfMonth = new Date(
     `1 ${monthArray[CURRENT_MONTH]}, ${CURRENT_YEAR}`
   );
   let firstDay = firstDayOfMonth.getDay();
 
+  // adding dates of previus month last dates to starting of calendar page
   firstDay === 0
     ? (start = noOfDaysInLastMonth - 6)
     : (start = noOfDaysInLastMonth - (firstDay - 1));
@@ -106,9 +118,11 @@ function displayCalendarPage() {
     start++;
   }
 
+  // adding date of current month
   let length = 42 - calendarArray.length;
   let activeFlag = true;
   for (let i = 1; i < length; i++) {
+    // adding next month fist dates
     if (i > noOfDaysInCurrentMonth) {
       i = 1;
       activeFlag = false;
