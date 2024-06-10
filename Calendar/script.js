@@ -34,6 +34,7 @@ let CURRENT_DATE;
 
 // eventLisreners
 inputEl.addEventListener("click", () => showCalendar());
+inputEl.addEventListener("keydown", (e) => findEnterdDate(e));
 incrementMonthBtn.addEventListener("click", () => incrementMonth());
 decrementMonthBtn.addEventListener("click", () => decrementMonth());
 incrementYearBtn.addEventListener("click", () => incrementYear());
@@ -199,4 +200,15 @@ function updateInput() {
   inputEl.value = `${formatNumber(CURRENT_DATE)}/ ${formatNumber(
     CURRENT_MONTH + 1
   )}/ ${CURRENT_YEAR}`;
+}
+
+function findEnterdDate(event) {
+  if (event.key === "Enter") {
+    let enterdDate = event.target.value;
+    let enterdDateArray = enterdDate.split("/");
+    CURRENT_DATE = +enterdDateArray[0];
+    CURRENT_MONTH = +enterdDateArray[1] - 1;
+    CURRENT_YEAR = +enterdDateArray[2];
+    updateYear();
+  }
 }
