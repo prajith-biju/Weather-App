@@ -115,7 +115,7 @@ function displayCalendarPage() {
     if (calendarArray.length >= 42) break;
     calendarArray.push({ dateValue: i, currentMonth: activeFlag });
   }
-  console.log(calendarArray);
+
   calendarPage.innerHTML = `
   <div class="week">
     <div class="text-day">Sun</div>
@@ -126,11 +126,11 @@ function displayCalendarPage() {
     <div class="text-day">Fri</div>
     <div class="text-day">Sat</div>
   </div>
-  <div class="date-grid">${generateCalerndarPage(calendarArray)}</div>
+  <div class="date-grid">${generateCalendarPage(calendarArray)}</div>
   `;
 }
 
-function generateCalerndarPage(month) {
+function generateCalendarPage(month) {
   let htmlForCalender = ``;
   for (let i = 0; i < month.length; i++) {
     htmlForCalender += `<div class="date-num ${
@@ -142,4 +142,8 @@ function generateCalerndarPage(month) {
     }">${month[i].dateValue}</div>`;
   }
   return htmlForCalender;
+}
+
+function checkLeapYear() {
+  return CURRENT_YEAR % 4 === 0 ? true : false;
 }

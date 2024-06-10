@@ -19,20 +19,26 @@
       </div>
       <div class="calendar-main">
         <div class="calendar-nav">
-          <button id="decrement-year" class="decrement-year">
-            <i class="fas fa-angle-double-left"></i>
-          </button>
-          <button id="decrement-month" class="decrement-month">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <span id="month" class="month"></span>
-          <span id="year" class="year"></span>
-          <button id="increment-month" class="increment-month">
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-          <button id="increment-year" class="increment-year">
-            <i class="fas fa-angle-double-right"></i>
-          </button>
+          <div class="left-btns">
+            <button id="decrement-year" class="decrement-year">
+              <i class="fas fa-angle-double-left"></i>
+            </button>
+            <button id="decrement-month" class="decrement-month">
+              <i class="fas fa-angle-left"></i>
+            </button>
+          </div>
+          <div class="nva-text">
+            <span id="month" class="month"></span>
+            <span id="year" class="year"></span>
+          </div>
+          <div class="right-btns">
+            <button id="increment-month" class="increment-month">
+              <i class="fas fa-angle-right"></i>
+            </button>
+            <button id="increment-year" class="increment-year">
+              <i class="fas fa-angle-double-right"></i>
+            </button>
+          </div>
         </div>
         <div class="show-calender"></div>
       </div>
@@ -40,3 +46,5 @@
     <script src="./script.js"></script>
   </body>
 </html>
+
+<!-- https://www.npmjs.com/package/vue2-datepicker  (reference) -->
