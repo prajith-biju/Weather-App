@@ -199,20 +199,25 @@ function formatNumber(num) {
 }
 
 function updateInput() {
-  inputEl.value = `${formatNumber(CURRENT_DATE)}/ ${formatNumber(
+  inputEl.value = `${formatNumber(CURRENT_DATE)}-${formatNumber(
     CURRENT_MONTH + 1
-  )}/ ${CURRENT_YEAR}`;
+  )}-${CURRENT_YEAR}`;
 }
 
 function findEnterdDate(event) {
-  if (event.key === "Enter") {
-    let enterdDate = event.target.value;
-    let enterdDateArray = enterdDate.split("/");
-    CURRENT_DATE = +enterdDateArray[0];
-    CURRENT_MONTH = +enterdDateArray[1] - 1;
-    CURRENT_YEAR = +enterdDateArray[2];
-    updateCalendar();
+  console.log(event.keyCode, event.shiftKey);
+
+  if (isValidKey(event.keyCode, event.shiftKey)) {
+    event.preventDefault();
   }
+  // if (event.key === "Enter") {
+  //   let enterdDate = event.target.value;
+  //   let enterdDateArray = enterdDate.split("-");
+  //   CURRENT_DATE = +enterdDateArray[0];
+  //   CURRENT_MONTH = +enterdDateArray[1] - 1;
+  //   CURRENT_YEAR = +enterdDateArray[2];
+  //   updateCalendar();
+  // }
 }
 
 function selectDate(nodeList) {
@@ -221,7 +226,7 @@ function selectDate(nodeList) {
       clearSelection(nodeList);
       element.classList.add("selected");
       CURRENT_DATE = +element.innerText;
-      updateInput()
+      updateInput();
     });
   });
 }
@@ -230,4 +235,23 @@ function clearSelection(list) {
   list.forEach((elem) => {
     elem.classList.remove("selected");
   });
+}
+
+function validate(event) {}
+
+function isValidKey(key, isShift) {
+  if (key === 109 || (isShift === false && key === 189)) {
+    return false;
+  } else {
+    if (
+      (key >= 65 && key <= 90) ||
+      (isShift && key >= 65 && key <= 90) ||
+      (key >= 186 && key <= 222) ||
+      (key >= 106 && key <= 111) ||
+      (isShift && key >= 48 && key <= 57) ||
+      key === 32
+    ) {
+      return true;
+    }
+  }
 }
