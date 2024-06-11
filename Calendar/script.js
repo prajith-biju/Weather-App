@@ -210,6 +210,10 @@ function findEnterdDate(event) {
   }
   if (event.key === "Enter") {
     let enterdDate = event.target.value;
+    if (enterdDate.split("-").length - 1 > 2) {
+      indicateInvalidDate();
+      return;
+    }
     let enterdDateArray = enterdDate.split("-");
     validate(enterdDateArray);
   }
@@ -268,7 +272,6 @@ function isValidKey(key, isShift) {
 function isValidDate(day, month, year) {
   let leapYear = checkLeapYear(year);
   let isOdd = checkOddMonth(month);
-  console.log(leapYear, isOdd, month);
   if (month < 0 || month > 11 || year <= 1000) {
     return false;
   }
