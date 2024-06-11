@@ -166,8 +166,8 @@ function generateCalendarPage(month) {
   return htmlForCalender;
 }
 
-function checkLeapYear() {
-  return CURRENT_YEAR % 4 === 0 ? true : false;
+function checkLeapYear(year = CURRENT_YEAR) {
+  return year % 4 === 0 ? true : false;
 }
 
 function incrementYear() {
@@ -205,19 +205,14 @@ function updateInput() {
 }
 
 function findEnterdDate(event) {
-  console.log(event.keyCode, event.shiftKey);
-
   if (isValidKey(event.keyCode, event.shiftKey)) {
     event.preventDefault();
   }
-  // if (event.key === "Enter") {
-  //   let enterdDate = event.target.value;
-  //   let enterdDateArray = enterdDate.split("-");
-  //   CURRENT_DATE = +enterdDateArray[0];
-  //   CURRENT_MONTH = +enterdDateArray[1] - 1;
-  //   CURRENT_YEAR = +enterdDateArray[2];
-  //   updateCalendar();
-  // }
+  if (event.key === "Enter") {
+    let enterdDate = event.target.value;
+    let enterdDateArray = enterdDate.split("-");
+    validate(enterdDateArray);
+  }
 }
 
 function selectDate(nodeList) {
@@ -237,7 +232,21 @@ function clearSelection(list) {
   });
 }
 
-function validate(event) {}
+function validate(userInput) {
+  let inputDate = +userInput[0];
+  let inputMonth = +userInput[1] - 1;
+  let inputYear = +userInput[2];
+
+  if (isValidDate(inputDate, inputMonth, inputYear)) {
+    CURRENT_DATE = inputDate;
+    CURRENT_MONTH = inputMonth;
+    CURRENT_YEAR = inputYear;
+    inputEl.classList.remove("invalid");
+    updateCalendar();
+  } else {
+    indicateInvalidDate();
+  }
+}
 
 function isValidKey(key, isShift) {
   if (key === 109 || (isShift === false && key === 189)) {
@@ -254,4 +263,37 @@ function isValidKey(key, isShift) {
       return true;
     }
   }
+}
+
+function isValidDate(day, month, year) {
+  let leapYear = checkLeapYear(year);
+  let isOdd = checkOddMonth(month);
+  console.log(leapYear, isOdd, month);
+  if (month < 0 || month > 11 || year <= 1000) {
+    return false;
+  }
+
+  if (month === 1) {
+    if (
+      (month === 1 && leapYear && day >= 1 && day <= 29) ||
+      (month === 1 && leapYear === false && day >= 1 && day <= 28)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    if (
+      (isOdd && day >= 1 && day <= 31) ||
+      (isOdd === false && day >= 1 && day <= 30)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+function indicateInvalidDate() {
+  inputEl.classList.add("invalid");
 }
