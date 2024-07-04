@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -43,4 +43,6 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
+/* cb95c5fb28c1496f8e7133822240207 */
+/* https://api.weatherapi.com/v1/current.json?q=paris&key=cb95c5fb28c1496f8e7133822240207 */

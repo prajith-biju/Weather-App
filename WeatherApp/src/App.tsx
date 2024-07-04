@@ -1,14 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
 import "./App.css";
+import { LandingPage } from "./Components/LandingPage";
+import { WeatherDisplay } from "./Components/WeatherDisplay";
+import { Route, Routes } from "react-router";
+
+type CityContextType = {
+  cityName: string | "";
+  setCityName: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const CityContext = React.createContext<CityContextType | null>(null);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [cityName, setCityName] = useState("");
 
   return (
     <>
-      <h3 className="text-3xl font-bold text-red-400">something</h3>
+      <CityContext.Provider value={{ cityName, setCityName }}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="display" element={<WeatherDisplay />} />
+        </Routes>
+      </CityContext.Provider>
     </>
   );
 }
