@@ -10,12 +10,18 @@ export default {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-150%)" },
         },
+        loadingAnim: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         marqueeText: "marqueeText 7s linear infinite",
+        loadingAnim: "loadingAnim 2s linear infinite",
       },
       backgroundImage: {
-        night: "url('assets/8048.jpg')",
+        night: "url('assets/bg.png')",
+        day: "url('assets/sky.png')",
       },
     },
   },

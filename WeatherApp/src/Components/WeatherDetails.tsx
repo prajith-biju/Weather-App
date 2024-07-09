@@ -1,27 +1,34 @@
-// import React from 'react'
+import { useContext } from "react";
+import { DetailsContext } from "../App";
 
 export const WeatherDetails = () => {
+  const DetailsCtx = useContext(DetailsContext);
+
   return (
-    <div className="text-[#fff] flex items-center">
+    <div className="flex items-center">
       <div className="flex h-[200px] ">
-        <img src="src/assets/cloud.png" />
+        <img src={`http:${DetailsCtx?.details?.icon}`} />
       </div>
-      <div className="flex flex-col">
-        <span className="font-[24px]">
+      <div className="flex flex-col text-[18px]">
+        <span className="">
           <i className="mr-[8px] fa-solid fa-temperature-three-quarters"></i>
-          Feels like:31C
+          Feels like: {DetailsCtx?.details?.feelslike}°C
         </span>
-        <span className="font-[24px]">
-          <i className="mr-[8px] fa-solid fa-droplet">°</i> Humidity: 15%
+        <span className="">
+          <i className="mr-[8px] fa-solid fa-droplet">°</i> Humidity:{" "}
+          {DetailsCtx?.details?.humidity}%
         </span>
-        <span className="font-[24px]">
-          <i className="mr-[8px] fa-solid fa-wind"></i> Wind: 14 km/h
+        <span className="">
+          <i className="mr-[8px] fa-solid fa-wind"></i> Wind:{" "}
+          {DetailsCtx?.details?.wind} km/h
         </span>
-        <span className="font-[24px]">
-          <i className="mr-[8px] fa-solid fa-cloud-rain"></i> Precipitation: 70%
+        <span className="">
+          <i className="mr-[8px] fa-solid fa-cloud-rain"></i> Precipitation:{" "}
+          {DetailsCtx?.details?.precip}mm
         </span>
-        <span className="font-[24px]">
-          <i className="mr-[8px] fa-solid fa-gauge-simple-high"></i>Pressuer: 1017.0MB
+        <span className="">
+          <i className="mr-[8px] fa-solid fa-gauge-simple-high"></i>Pressuer:{" "}
+          {DetailsCtx?.details?.pressure}MB
         </span>
       </div>
     </div>

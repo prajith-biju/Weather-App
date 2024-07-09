@@ -26,7 +26,7 @@ export const LandingPage = () => {
       <h1 className="text-[#fff] text-[70px] tracking-[1.5px] absolute top-[20px] font-bold opacity-[.8]">
         Weather App
       </h1>
-      <div className="flex flex-col  p-[40px]">
+      <div className="flex flex-col  p-[40px] z-10">
         <Marquee />
         <form
           onSubmit={handleSubmit}
